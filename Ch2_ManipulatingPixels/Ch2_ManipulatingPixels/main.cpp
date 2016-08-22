@@ -126,35 +126,31 @@ void sharpen2D(const cv::Mat &image, cv::Mat &result) {
 
 
 
-
-
-
-
 int main(int argc, const char * argv[]) {
     cv::Mat image = cv::imread("littleHedgehog.jpg");
     //cv::namedWindow("OriginalImage");
     //cv::imshow("OriginalImage", image);
     cv::Mat imageClone = image.clone();
+    cv::Mat imageClone2 = image.clone();
     cv::Mat imageGray;
     cv::cvtColor(image, imageGray, CV_BGR2GRAY); // imgproc.hpp
     
-    /*
     // 1.
-    salt(image, 3000);
+    salt(imageClone, 3000);
     cv::namedWindow("SaltedImage");
     cv::imshow("SaltedIm:age", imageClone);
     
     // 4.
-    colorReduce3(imageClone);
+    colorReduce3(imageClone2);
     cv::namedWindow("ColorReducedImage");
-    cv::imshow("ColorReducedImage", imageClone);
+    cv::imshow("ColorReducedImage", imageClone2);
     
     // 5.
     cv::Mat imageSharp;
     sharpen2D(imageGray, imageSharp);
     cv::namedWindow("SharpenedImage");
     cv::imshow("SharpenedImage", imageSharp);
-    */
+
     // 6. Performing simple image arthmetic
     // Combining two images
     cv::Mat image2 = cv::imread("sandArt.jpg");
@@ -163,7 +159,7 @@ int main(int argc, const char * argv[]) {
     cv::Mat imageSum;
     cv::addWeighted(image, 0.7, image2Resize, 0.3, 0., imageSum);
     cv::namedWindow("SumImage");
-    //cv::imshow("SumImage", imageSum);
+    cv::imshow("SumImage", imageSum);
      
     
     //TODO: Splitting channels
@@ -180,9 +176,7 @@ int main(int argc, const char * argv[]) {
     imageROI = image(cv::Rect(0, 0, image2.cols, image2.rows));
     //imageROI points to the same data buffer as image
     cv::addWeighted(imageROI, 0.7, image2, 0.3, 0., imageROI);
-    //cv::Mat image2Gray;
-    //cv::cvtColor(image2, image2Gray, CV_BGR2GRAY);
-    //image2.copyTo(imageROI,image2Gray); //mask
+    //another way image2.copyTo(imageROI,mask);
     cv::namedWindow("ROI");
     cv::imshow("ROI", image);
     
